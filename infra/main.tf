@@ -1,7 +1,3 @@
-provider "aws" {
-  region = var.region
-}
-
 # ECS Cluster Module
 module "ecs_cluster" {
   source = "git::https://github.com/mani-bca/set-aws-infra.git//modules/ecs_cluster?ref=main"
