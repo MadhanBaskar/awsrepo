@@ -1,80 +1,111 @@
-variable "region" {
-  type = string
-}
-
 variable "cluster_name" {
   type = string
 }
 
-variable "execution_role_arn" {
+variable "cluster_tags" {
+  type = map
+  default = {
+    "terraform" = "True"
+  }
+}
+
+variable "create_iam_role" {
+	type = bool
+	default = true
+}
+
+variable "iam_role_name" {
+  type = string
+  default = ""
+}
+
+variable "iam_role_tags" {
+  type = map
+  default = {
+    "terraform" = "True"
+  }
+}
+
+variable "cloudwatch_log_group_name" {
   type = string
 }
 
-variable "task_role_arn" {
-  type = string
+variable "cloudwatch_log_group_retention" {}
+
+variable "cloudwatch_log_group_tags" {
+  type = map
+  default = {
+    "terraform" = "True"
+  }
 }
 
-variable "subnets" {
+variable "task_definition_family" {}
+
+variable "container_definition_name" {}
+
+variable "container_definition_image" {}
+
+variable "cd_portmapping_containerport" {}
+
+variable "cd_portmapping_hostport" {}
+
+variable "cd_portmapping_protocol" {}
+
+variable "cd_env_vars" {
+	type = list(map(string))
+	default = []
+}
+
+variable "cd_mount_points" {
+	default = []
+}
+
+variable "task_definition_cpu" {}
+
+variable "task_definition_memory" {}
+
+variable "td_execution_role_arn" {
+	default = ""
+}
+
+variable "td_task_role_arn" {
+	default = ""
+}
+
+variable "td_volumes" {
+	type = map
+	default = {}
+}
+
+variable "td_volume_name" {
+	default = ""
+}
+
+variable "td_volume_fs_id" {
+	default = ""
+}
+
+variable "td_volume_root_dir" {
+	default = ""
+}
+
+variable "td_tags" {
+  type = map
+  default = {
+    "terraform" = "True"
+  }
+}
+
+variable "service_name" {}
+
+variable "service_subnets" {
   type = list(string)
+  default = []
 }
 
-variable "security_groups" {
+variable "service_sg" {
   type = list(string)
+  default = []
 }
 
-variable "assign_public_ip" {
-  type    = bool
-  default = true
-}
-
-# App 1 variables
-variable "app1_task_family" {
-  type = string
-}
-variable "app1_cpu" {
-  type = string
-}
-variable "app1_memory" {
-  type = string
-}
-variable "app1_container_name" {
-  type = string
-}
-variable "app1_container_image" {
-  type = string
-}
-variable "app1_container_port" {
-  type = number
-}
-variable "app1_service_name" {
-  type = string
-}
-variable "app1_desired_count" {
-  type = number
-}
-
-# App 2 variables
-variable "app2_task_family" {
-  type = string
-}
-variable "app2_cpu" {
-  type = string
-}
-variable "app2_memory" {
-  type = string
-}
-variable "app2_container_name" {
-  type = string
-}
-variable "app2_container_image" {
-  type = string
-}
-variable "app2_container_port" {
-  type = number
-}
-variable "app2_service_name" {
-  type = string
-}
-variable "app2_desired_count" {
-  type = number
-}
+variable "service_tg_arn" {}
