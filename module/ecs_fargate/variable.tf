@@ -1,21 +1,62 @@
-variable "cluster_name" {}
-variable "task_family" {}
-variable "cpu" {}
-variable "memory" {}
-variable "execution_role_arn" {}
-variable "task_role_arn" {}
-variable "container_name" {}
-variable "container_image" {}
-variable "container_port" {}
-variable "service_name" {}
-variable "desired_count" {}
-variable "subnets" {
-  type = list(string)
+variable "cluster_name" {
+  description = "ECS Cluster name"
+  type        = string
 }
-variable "security_groups" {
-  type = list(string)
+
+variable "task_family" {
+  description = "Task definition family"
+  type        = string
 }
-variable "assign_public_ip" {
-  type    = bool
-  default = true
+
+variable "cpu" {
+  description = "CPU units for the task"
+  type        = string
+}
+
+variable "memory" {
+  description = "Memory for the task"
+  type        = string
+}
+
+variable "execution_role_arn" {
+  description = "Execution role ARN"
+  type        = string
+}
+
+variable "task_role_arn" {
+  description = "Task role ARN"
+  type        = string
+}
+
+variable "container_name" {
+  description = "Container name"
+  type        = string
+}
+
+variable "container_image" {
+  description = "Container image"
+  type        = string
+}
+
+variable "container_port" {
+  description = "Container port"
+  type        = number
+}
+
+variable "subnet_ids" {
+  description = "List of subnet IDs for ECS services"
+  type        = list(string)
+}
+
+variable "services" {
+  description = "List of ECS services"
+  type = list(object({
+    name             = string
+    desired_count    = number
+    security_groups  = list(string)
+    assign_public_ip = bool
+    load_balancer = optional(object({
+      target_group_arn = string
+    }))
+  }))
 }

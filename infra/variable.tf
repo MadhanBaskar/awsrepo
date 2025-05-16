@@ -1,111 +1,76 @@
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+}
+
 variable "cluster_name" {
-  type = string
+  description = "ECS Cluster name"
+  type        = string
 }
 
-variable "cluster_tags" {
-  type = map
-  default = {
-    "terraform" = "True"
-  }
+variable "task_family" {
+  description = "Task definition family"
+  type        = string
 }
 
-variable "create_iam_role" {
-	type = bool
-	default = true
+variable "cpu" {
+  description = "CPU units for the task"
+  type        = string
 }
 
-variable "iam_role_name" {
-  type = string
-  default = ""
+variable "memory" {
+  description = "Memory for the task"
+  type        = string
 }
 
-variable "iam_role_tags" {
-  type = map
-  default = {
-    "terraform" = "True"
-  }
+variable "execution_role_arn" {
+  description = "Execution role ARN"
+  type        = string
 }
 
-variable "cloudwatch_log_group_name" {
-  type = string
+variable "task_role_arn" {
+  description = "Task role ARN"
+  type        = string
 }
 
-variable "cloudwatch_log_group_retention" {}
-
-variable "cloudwatch_log_group_tags" {
-  type = map
-  default = {
-    "terraform" = "True"
-  }
+variable "container_name" {
+  description = "Container name"
+  type        = string
 }
 
-variable "task_definition_family" {}
-
-variable "container_definition_name" {}
-
-variable "container_definition_image" {}
-
-variable "cd_portmapping_containerport" {}
-
-variable "cd_portmapping_hostport" {}
-
-variable "cd_portmapping_protocol" {}
-
-variable "cd_env_vars" {
-	type = list(map(string))
-	default = []
+variable "container_image" {
+  description = "Container image"
+  type        = string
 }
 
-variable "cd_mount_points" {
-	default = []
+variable "container_port" {
+  description = "Container port"
+  type        = number
 }
 
-variable "task_definition_cpu" {}
-
-variable "task_definition_memory" {}
-
-variable "td_execution_role_arn" {
-	default = ""
+variable "subnet_ids" {
+  description = "List of subnet IDs for ECS services"
+  type        = list(string)
 }
 
-variable "td_task_role_arn" {
-	default = ""
+variable "services" {
+  description = "List of ECS services"
+  type = list(object({
+    name             = string
+    desired_count    = number
+    security_groups  = list(string)
+    assign_public_ip = bool
+    load_balancer = optional(object({
+      target_group_arn = string
+    }))
+  }))
+}
+variable "vpc_id" {
+  description = "VPC ID for ECS and security groups"
+  type        = string
 }
 
-variable "td_volumes" {
-	type = map
-	default = {}
+variable "lb_target_group_arn_1" {
+  description = "Target group ARN for service1"
+  type        = string
 }
-
-variable "td_volume_name" {
-	default = ""
-}
-
-variable "td_volume_fs_id" {
-	default = ""
-}
-
-variable "td_volume_root_dir" {
-	default = ""
-}
-
-variable "td_tags" {
-  type = map
-  default = {
-    "terraform" = "True"
-  }
-}
-
-variable "service_name" {}
-
-variable "service_subnets" {
-  type = list(string)
-  default = []
-}
-
-variable "service_sg" {
-  type = list(string)
-  default = []
-}
-
-variable "service_tg_arn" {}

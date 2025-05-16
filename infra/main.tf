@@ -1,24 +1,83 @@
-# ECS Cluster Module
-module "ecs_cluster" {
-  source = "git::https://github.com/mani-bca/set-aws-infra.git//modules/ecs_cluster?ref=main"
-  name   = var.cluster_name
+provider "aws" {
+  region = var.aws_region
 }
 
-# App 1
-module "ecs_cluster" {
-  source = "../module/ecs_fargate"
-  cluster_name        = var.cluster.name
-  task_family         = var.app1_task_family
-  cpu                 = var.app1_cpu
-  memory              = var.app1_memory
-  execution_role_arn  = var.execution_role_arn
-  task_role_arn       = var.task_role_arn
-  container_name      = var.app1_container_name
-  container_image     = var.app1_container_image
-  container_port      = var.app1_container_port
-  service_name        = var.app1_service_name
-  desired_count       = var.app1_desired_count
-  subnets             = var.subnets
-  security_groups     = var.security_groups
-  assign_public_ip    = var.assign_public_ip
+module "ecs_execution_role" {
+  source                = "../modules/iam_role"
+  name                  = "ecsExecutionRole"
+  trust_policy_json     = "${path.module}/ecs_execution_trust_policy.json"
+  aws_managed_policy_arns = [
+    "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+  ]
+  inline_policies = {}
+}
+
+module "ecs_task_role" {
+  source                = "../modules/iam_role"
+  name                  = "ecsTaskRole"
+  trust_policy_json     = "${path.module}/ecs_task_trust_policy.json"
+  aws_managed_policy_arns = [
+    # Add your custom policies here if needed
+  ]
+  inline_policies = {}
+}
+
+module "ecs_sg" {
+  source      = "../modules/security_group"
+  name        = "ecs-service-sg"
+  description = "Allow HTTP"
+  vpc_id      = var.vpc_id
+  ingress = [
+    {
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
+  egress = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
+  tags = {
+    Name = "ecs-service-sg"
+  }
+}
+
+module "ecs_fargate" {
+  source             = "../modules/ecs_fargate"
+  cluster_name       = var.cluster_name
+  task_family        = var.task_family
+  cpu                = var.cpu
+  memory             = var.memory
+  execution_role_arn = module.ecs_execution_role.arn
+  task_role_arn      = module.ecs_task_role.arn
+  container_name     = var.container_name
+  container_image    = var.container_image
+  container_port     = var.container_port
+  subnet_ids         = var.subnet_ids
+  services = [
+    {
+      name             = "service1"
+      desired_count    = 2
+      security_groups  = [module.ecs_sg.id]
+      assign_public_ip = true
+      load_balancer = {
+        target_group_arn = var.lb_target_group_arn_1
+      }
+    },
+    {
+      name             = "service2"
+      desired_count    = 1
+      security_groups  = [module.ecs_sg.id]
+      assign_public_ip = true
+      load_balancer = {
+        target_group_arn = var.lb_target_group_arn_2
+      }
+    }
+  ]
 }

@@ -4,12 +4,12 @@ resource "aws_ecs_cluster" "this" {
 
 resource "aws_ecs_task_definition" "this" {
   family                   = var.task_family
-  network_mode            = "awsvpc"
+  network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                     = var.cpu
-  memory                  = var.memory
-  execution_role_arn      = var.execution_role_arn
-  task_role_arn           = var.task_role_arn
+  cpu                      = var.cpu
+  memory                   = var.memory
+  execution_role_arn       = var.execution_role_arn
+  task_role_arn            = var.task_role_arn
 
   container_definitions = jsonencode([
     {
@@ -29,20 +29,26 @@ resource "aws_ecs_task_definition" "this" {
 }
 
 resource "aws_ecs_service" "this" {
-  name            = var.service_name
+  for_each        = { for svc in var.services : svc.name => svc }
+  name            = each.value.name
   cluster         = aws_ecs_cluster.this.id
   task_definition = aws_ecs_task_definition.this.arn
-  desired_count   = var.desired_count
+  desired_count   = each.value.desired_count
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = var.subnets
-    assign_public_ip = var.assign_public_ip
-    security_groups  = var.security_groups
+    subnets          = var.subnet_ids
+    assign_public_ip = each.value.assign_public_ip
+    security_groups  = each.value.security_groups
   }
 
-  lifecycle {
-    ignore_changes = [task_definition]
+  dynamic "load_balancer" {
+    for_each = each.value.load_balancer != null ? [each.value.load_balancer] : []
+    content {
+      target_group_arn = load_balancer.value.target_group_arn
+      container_name   = var.container_name
+      container_port   = var.container_port
+    }
   }
 
   depends_on = [aws_ecs_task_definition.this]
