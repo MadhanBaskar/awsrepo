@@ -25,7 +25,7 @@ module "app1_service" {
 
 # App 2
 module "app2_service" {
-  source              = "./modules/ecs_fargate"
+  source = "git::https://github.com/mani-bca/set-aws-infra.git//modules/ecs_fargate?ref=main"
   cluster_name        = module.ecs_cluster.name
   task_family         = var.app2_task_family
   cpu                 = var.app2_cpu
