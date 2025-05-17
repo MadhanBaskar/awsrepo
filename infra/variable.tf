@@ -70,15 +70,15 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "lb_target_group_arn_1" {
-  description = "Target group ARN for service1"
-  type        = string
-}
+#variable "lb_target_group_arn_1" {
+#  description = "Target group ARN for service1"
+#  type        = string
+#}
 
-variable "lb_target_group_arn_2" {
-  description = "Target group ARN for service1"
-  type        = string
-}
+#variable "lb_target_group_arn_2" {
+#  description = "Target group ARN for service1"
+#  type        = string
+#}
 
 variable "appointment_port" { 
   type = number 
