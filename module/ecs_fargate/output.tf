@@ -3,11 +3,11 @@ output "ecs_cluster_id" {
 }
 
 output "ecs_service1_arn" {
-  value = aws_ecs_service.this["service1"].arn
+  value = aws_ecs_service.this["service1"].id
 }
 
 output "ecs_service1_name" {
-  value = aws_ecs_service.this["service2"].name
+  value = aws_ecs_service.this["service1"].name
 }
 output "ecs_task_definition_arn" {
   value = aws_ecs_task_definition.this.arn
