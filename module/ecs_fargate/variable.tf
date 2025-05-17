@@ -10,12 +10,12 @@ variable "task_family" {
 
 variable "cpu" {
   description = "CPU units for the task"
-  type        = string
+  type        = number
 }
 
 variable "memory" {
   description = "Memory for the task"
-  type        = string
+  type        = number
 }
 
 variable "execution_role_arn" {

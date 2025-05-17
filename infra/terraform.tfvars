@@ -1,8 +1,8 @@
 region            = "us-east-1"
 cluster_name      = "demo-ecs-cluster"
 task_family       = "demo-task-family"
-cpu               = "256"
-memory            = "512"
+cpu               = 256
+memory            = 512
 #execution_role_arn = "arn:aws:iam::123456789012:role/ecsExecutionRole"
 #task_role_arn      = "arn:aws:iam::123456789012:role/ecsTaskRole"
 container_name     = "my-app"
