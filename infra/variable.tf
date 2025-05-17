@@ -53,18 +53,18 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
-variable "services" {
-  description = "List of ECS services"
-  type = list(object({
-    name             = string
-    desired_count    = number
-    security_groups  = list(string)
-    assign_public_ip = bool
-    load_balancer = optional(object({
-      target_group_arn = string
-    }))
-  }))
-}
+#variable "services" {
+#  description = "List of ECS services"
+#  type = list(object({
+#    name             = string
+#    desired_count    = number
+#    security_groups  = list(string)
+#    assign_public_ip = bool
+#    load_balancer = optional(object({
+#      target_group_arn = string
+#    }))
+#  }))
+#}
 variable "vpc_id" {
   description = "VPC ID for ECS and security groups"
   type        = string
