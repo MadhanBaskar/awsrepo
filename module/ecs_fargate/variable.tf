@@ -49,12 +49,17 @@ variable "subnet_ids" {
 }
 
 variable "services" {
-  description = "List of ECS services"
+  description = "List of ECS services with their own container/task settings"
   type = list(object({
     name             = string
     desired_count    = number
     security_groups  = list(string)
     assign_public_ip = bool
+    container_name   = string
+    container_image  = string
+    container_port   = number
+    cpu              = number
+    memory           = number
     load_balancer = optional(object({
       target_group_arn = string
     }))

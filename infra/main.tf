@@ -91,14 +91,8 @@ module "ecs_sg" {
 module "ecs_fargate" {
   source             = "../module/ecs_fargate"
   cluster_name       = var.cluster_name
-  task_family        = var.task_family
-  cpu                = var.cpu
-  memory             = var.memory
   execution_role_arn = module.ecs_execution_role.arn
   task_role_arn      = module.ecs_task_role.arn
-  container_name     = var.container_name
-  container_image    = var.container_image
-  container_port     = var.container_port
   subnet_ids         = var.subnet_ids
   services = [
     {
@@ -106,6 +100,11 @@ module "ecs_fargate" {
       desired_count    = var.appointment_desired_count
       security_groups  = [module.ecs_sg.id]
       assign_public_ip = true
+      container_name   = "appointment"
+      container_image  = "nginx:latest" # or your appointment image
+      container_port   = var.appointment_port
+      cpu              = var.cpu
+      memory           = var.memory
       load_balancer = {
         target_group_arn = module.alb.appointment_target_group_arn
       }
@@ -115,6 +114,11 @@ module "ecs_fargate" {
       desired_count    = var.patient_desired_count
       security_groups  = [module.ecs_sg.id]
       assign_public_ip = true
+      container_name   = "patient"
+      container_image  = "httpd:latest" # or your patient image
+      container_port   = var.patient_port
+      cpu              = var.cpu
+      memory           = var.memory
       load_balancer = {
         target_group_arn = module.alb.patient_target_group_arn
       }
