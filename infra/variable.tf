@@ -23,15 +23,15 @@ variable "memory" {
   type        = string
 }
 
-variable "execution_role_arn" {
-  description = "Execution role ARN"
-  type        = string
-}
+#variable "execution_role_arn" {
+#  description = "Execution role ARN"
+#  type        = string
+#}
 
-variable "task_role_arn" {
-  description = "Task role ARN"
-  type        = string
-}
+#variable "task_role_arn" {
+#  description = "Task role ARN"
+#  type        = string
+#}
 
 variable "container_name" {
   description = "Container name"
