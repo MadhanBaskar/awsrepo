@@ -1,6 +1,3 @@
-provider "aws" {
-  region = var.aws_region
-}
 
 module "ecs_execution_role" {
   source                = "../module/iam_role"
