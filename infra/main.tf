@@ -19,10 +19,10 @@ module "ecs_task_role" {
   inline_policies = {}
 }
 
-module "ecs_sg" {
+module "alb_sg" {
   source      = "../module/security_group"
-  name        = "ecs-service-sg"
-  description = "Allow HTTP"
+  name        = "alb-sg"
+  description = "Allow HTTP to ALB"
   vpc_id      = var.vpc_id
   ingress = [
     {
@@ -40,12 +40,53 @@ module "ecs_sg" {
       cidr_blocks = ["0.0.0.0/0"]
     }
   ]
-  tags = {
-    Name = "ecs-service-sg"
-  }
+  tags = { Name = "alb-sg" }
 }
 
+module "alb" {
+  source                  = "../module/alb"
+  name                    = "ecs-demo-alb"
+  security_groups         = [module.alb_sg.id]
+  subnets                 = var.subnet_ids
+  vpc_id                  = var.vpc_id
+  tags                    = { Name = "ecs-demo-alb" }
+  appointment_port        = var.appointment_port
+  appointment_path        = var.appointment_path
+  appointment_health_path = var.appointment_health_path
+  patient_port            = var.patient_port
+  patient_path            = var.patient_path
+  patient_health_path     = var.patient_health_path
+}
 
+module "ecs_sg" {
+  source      = "../module/security_group"
+  name        = "ecs-service-sg"
+  description = "Allow HTTP"
+  vpc_id      = var.vpc_id
+  ingress = [
+    {
+      from_port   = var.appointment_port
+      to_port     = var.appointment_port
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    },
+    {
+      from_port   = var.patient_port
+      to_port     = var.patient_port
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
+  egress = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
+  tags = { Name = "ecs-service-sg" }
+}
 
 module "ecs_fargate" {
   source             = "../module/ecs_fargate"
@@ -62,20 +103,20 @@ module "ecs_fargate" {
   services = [
     {
       name             = "appointment"
-      desired_count    = 2
+      desired_count    = var.appointment_desired_count
       security_groups  = [module.ecs_sg.id]
       assign_public_ip = true
       load_balancer = {
-        target_group_arn = var.lb_target_group_arn_1
+        target_group_arn = module.alb.appointment_target_group_arn
       }
     },
     {
       name             = "patient"
-      desired_count    = 1
+      desired_count    = var.patient_desired_count
       security_groups  = [module.ecs_sg.id]
       assign_public_ip = true
       load_balancer = {
-        target_group_arn = var.lb_target_group_arn_2
+        target_group_arn = module.alb.patient_target_group_arn
       }
     }
   ]

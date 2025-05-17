@@ -79,3 +79,29 @@ variable "lb_target_group_arn_2" {
   description = "Target group ARN for service1"
   type        = string
 }
+
+variable "appointment_port" { 
+  type = number 
+}
+variable "appointment_path" { 
+  type = string 
+}
+variable "appointment_health_path" { 
+  type = string 
+}
+variable "appointment_desired_count" { 
+  type = number 
+}
+
+variable "patient_port" { 
+  type = number 
+}
+variable "patient_path" { 
+  type = string 
+}
+variable "patient_health_path" { 
+  type = string 
+}
+variable "patient_desired_count" { 
+  type = number 
+}
