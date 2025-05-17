@@ -92,6 +92,9 @@ variable "appointment_health_path" {
 variable "appointment_desired_count" { 
   type = number 
 }
+variable "appointment_image" { 
+  type = string 
+}
 
 variable "patient_port" { 
   type = number 
@@ -104,4 +107,7 @@ variable "patient_health_path" {
 }
 variable "patient_desired_count" { 
   type = number 
+}
+variable "patient_image" { 
+  type = string 
 }

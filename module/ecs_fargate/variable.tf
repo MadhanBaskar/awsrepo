@@ -3,21 +3,6 @@ variable "cluster_name" {
   type        = string
 }
 
-variable "task_family" {
-  description = "Task definition family"
-  type        = string
-}
-
-variable "cpu" {
-  description = "CPU units for the task"
-  type        = number
-}
-
-variable "memory" {
-  description = "Memory for the task"
-  type        = number
-}
-
 variable "execution_role_arn" {
   description = "Execution role ARN"
   type        = string
@@ -26,21 +11,6 @@ variable "execution_role_arn" {
 variable "task_role_arn" {
   description = "Task role ARN"
   type        = string
-}
-
-variable "container_name" {
-  description = "Container name"
-  type        = string
-}
-
-variable "container_image" {
-  description = "Container image"
-  type        = string
-}
-
-variable "container_port" {
-  description = "Container port"
-  type        = number
 }
 
 variable "subnet_ids" {

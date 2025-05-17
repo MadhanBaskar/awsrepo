@@ -6,9 +6,10 @@ output "ecs_service_names" {
   value = [for svc in values(aws_ecs_service.this) : svc.name]
 }
 
-output "ecs_service_arns" {
+output "ecs_service_ids" {
   value = [for svc in values(aws_ecs_service.this) : svc.id]
 }
-output "ecs_task_definition_arn" {
-  value = aws_ecs_task_definition.this.arn
+
+output "ecs_task_definition_arns" {
+  value = [for td in values(aws_ecs_task_definition.this) : td.arn]
 }
