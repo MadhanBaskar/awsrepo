@@ -1,6 +1,6 @@
 resource "aws_iam_role" "this" {
   name               = var.name
-  assume_role_policy = file(var.trust_policy_json)
+  assume_role_policy = var.trust_policy_json
 }
 
 resource "aws_iam_role_policy_attachment" "managed" {
