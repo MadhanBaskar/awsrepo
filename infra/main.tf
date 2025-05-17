@@ -45,6 +45,8 @@ module "ecs_sg" {
   }
 }
 
+
+
 module "ecs_fargate" {
   source             = "../module/ecs_fargate"
   cluster_name       = var.cluster_name
@@ -59,7 +61,7 @@ module "ecs_fargate" {
   subnet_ids         = var.subnet_ids
   services = [
     {
-      name             = "service1"
+      name             = "appointment"
       desired_count    = 2
       security_groups  = [module.ecs_sg.id]
       assign_public_ip = true
@@ -68,7 +70,7 @@ module "ecs_fargate" {
       }
     },
     {
-      name             = "service2"
+      name             = "patient"
       desired_count    = 1
       security_groups  = [module.ecs_sg.id]
       assign_public_ip = true
