@@ -2,7 +2,7 @@
 module "ecs_execution_role" {
   source                = "../module/iam_role"
   name                  = "ecsExecutionRole"
-  trust_policy_json     = "${path.module}/ecs_execution_trust_policy.json"
+  trust_policy_json     = file("${path.module}/ecs_execution_trust_policy.json")
   aws_managed_policy_arns = [
     "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
   ]
@@ -12,7 +12,7 @@ module "ecs_execution_role" {
 module "ecs_task_role" {
   source                = "../module/iam_role"
   name                  = "ecsTaskRole"
-  trust_policy_json     = "${path.module}/ecs_task_trust_policy.json"
+  trust_policy_json     = file("${path.module}/ecs_task_trust_policy.json")
   aws_managed_policy_arns = [
     # Add your custom policies here if needed
   ]
