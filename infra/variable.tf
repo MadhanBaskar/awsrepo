@@ -33,20 +33,20 @@ variable "memory" {
 #  type        = string
 #}
 
-variable "container_name" {
+#variable "container_name" {
   description = "Container name"
   type        = string
 }
 
-variable "container_image" {
-  description = "Container image"
-  type        = string
-}
+#variable "container_image" {
+#  description = "Container image"
+#  type        = string
+#}
 
-variable "container_port" {
-  description = "Container port"
-  type        = number
-}
+#variable "container_port" {
+#  description = "Container port"
+#  type        = number
+#}
 
 variable "subnet_ids" {
   description = "List of subnet IDs for ECS services"
