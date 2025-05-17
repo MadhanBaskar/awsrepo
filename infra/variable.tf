@@ -13,15 +13,15 @@ variable "cluster_name" {
 #  type        = string
 #}
 
-#variable "cpu" {
-#  description = "CPU units for the task"
-#  type        = number
-#}
+variable "cpu" {
+  description = "CPU units for the task"
+  type        = number
+}
 
-#variable "memory" {
-#  description = "Memory for the task"
-#  type        = number
-#}
+variable "memory" {
+  description = "Memory for the task"
+  type        = number
+}
 
 #variable "execution_role_arn" {
 #  description = "Execution role ARN"
