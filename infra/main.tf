@@ -101,7 +101,7 @@ module "ecs_fargate" {
       security_groups  = [module.ecs_sg.id]
       assign_public_ip = true
       container_name   = "appointment"
-      container_image  = "nginx:latest" # or your appointment image
+      container_image  = var.appointment_image
       container_port   = var.appointment_port
       cpu              = var.cpu
       memory           = var.memory
@@ -115,7 +115,7 @@ module "ecs_fargate" {
       security_groups  = [module.ecs_sg.id]
       assign_public_ip = true
       container_name   = "patient"
-      container_image  = "httpd:latest" # or your patient image
+      container_image  = var.patient_image
       container_port   = var.patient_port
       cpu              = var.cpu
       memory           = var.memory
