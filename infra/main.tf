@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "ecs_execution_role" {
-  source                = "../modules/iam_role"
+  source                = "../module/iam_role"
   name                  = "ecsExecutionRole"
   trust_policy_json     = "${path.module}/ecs_execution_trust_policy.json"
   aws_managed_policy_arns = [
@@ -13,7 +13,7 @@ module "ecs_execution_role" {
 }
 
 module "ecs_task_role" {
-  source                = "../modules/iam_role"
+  source                = "../module/iam_role"
   name                  = "ecsTaskRole"
   trust_policy_json     = "${path.module}/ecs_task_trust_policy.json"
   aws_managed_policy_arns = [
@@ -23,7 +23,7 @@ module "ecs_task_role" {
 }
 
 module "ecs_sg" {
-  source      = "../modules/security_group"
+  source      = "../module/security_group"
   name        = "ecs-service-sg"
   description = "Allow HTTP"
   vpc_id      = var.vpc_id
@@ -49,7 +49,7 @@ module "ecs_sg" {
 }
 
 module "ecs_fargate" {
-  source             = "../modules/ecs_fargate"
+  source             = "../module/ecs_fargate"
   cluster_name       = var.cluster_name
   task_family        = var.task_family
   cpu                = var.cpu
