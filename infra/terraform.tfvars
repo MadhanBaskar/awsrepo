@@ -9,13 +9,13 @@ memory            = 512
 #execution_role_arn = "arn:aws:iam::123456789012:role/ecsExecutionRole"
 #task_role_arn      = "arn:aws:iam::123456789012:role/ecsTaskRole"
 
-appointment_port         = 3000
+appointment_port         = 3001
 appointment_path         = "/appointments*"
 appointment_health_path  = "/appointments"
 appointment_desired_count = 1
 appointment_image        = "676206899900.dkr.ecr.us-east-1.amazonaws.com/dev/lambda:app2"
 
-patient_port         = 3001
+patient_port         = 3000
 patient_path         = "/patients*"
 patient_health_path  = "/patients"
 patient_desired_count = 1
