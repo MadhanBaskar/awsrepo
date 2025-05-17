@@ -3,13 +3,12 @@ output "ecs_cluster_id" {
 }
 
 output "ecs_service_arns" {
-  value = [for svc in aws_ecs_service.this : svc.value.arn]
+  value = [for svc in values(aws_ecs_service.this) : svc.arn]
 }
 
 output "ecs_service_names" {
-  value = [for svc in aws_ecs_service.this : svc.value.name]
+  value = [for svc in values(aws_ecs_service.this) : svc.name]
 }
-
 output "ecs_task_definition_arn" {
   value = aws_ecs_task_definition.this.arn
 }
