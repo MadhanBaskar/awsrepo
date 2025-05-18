@@ -40,7 +40,7 @@ module "eks" {
   principal_arn    = var.principal_arn
   kubernetes_groups = var.kubernetes_groups
   access_policy_arn = var.access_policy_arn
-  vpc_id           = module.vpc.vpc_id
+#  vpc_id           = module.vpc.vpc_id
 
   depends_on = [
     module.security_groups,

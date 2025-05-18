@@ -1,5 +1,4 @@
 region            = "us-east-1"
-#vpc_id           = "vpc-12345678" # Replace with your actual VPC ID
 api_access_cidrs = ["10.0.6.0/24", "10.0.7.0/24"]
 #lb_ingress_cidrs = ["0.0.0.0/0"]
 
