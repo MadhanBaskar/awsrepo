@@ -1,5 +1,5 @@
 module "vpc" {
-  source                = "../module/vpc"
+  source                = "./module/vpc"
   name                 = "${var.name}-vpc"
   vpc_cidr             = var.vpc_cidr
   availability_zones   = var.availability_zones

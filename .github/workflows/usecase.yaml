@@ -1,4 +1,4 @@
-name: Terraform api and lambda
+name: Terraform eks
 
 on:
   pull_request:
