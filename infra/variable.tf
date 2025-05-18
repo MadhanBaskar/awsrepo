@@ -3,111 +3,91 @@ variable "region" {
   type        = string
 }
 
-variable "cluster_name" {
-  description = "ECS Cluster name"
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
   type        = string
 }
 
-#variable "task_family" {
-#  description = "Task definition family"
-#  type        = string
-#}
-
-variable "cpu" {
-  description = "CPU units for the task"
-  type        = number
-}
-
-variable "memory" {
-  description = "Memory for the task"
-  type        = number
-}
-
-#variable "execution_role_arn" {
-#  description = "Execution role ARN"
-#  type        = string
-#}
-
-#variable "task_role_arn" {
-#  description = "Task role ARN"
-#  type        = string
-#}
-
-#variable "container_name" {
-#  description = "Container name"
-#  type        = string
-#}
-
-#variable "container_image" {
-#  description = "Container image"
-#  type        = string
-#}
-
-#variable "container_port" {
-#  description = "Container port"
-#  type        = number
-#}
-
-variable "subnet_ids" {
-  description = "List of subnet IDs for ECS services"
+variable "availability_zones" {
+  description = "List of availability zones"
   type        = list(string)
 }
 
-#variable "services" {
-#  description = "List of ECS services"
-#  type = list(object({
-#    name             = string
-#    desired_count    = number
-#    security_groups  = list(string)
-#    assign_public_ip = bool
-#    load_balancer = optional(object({
-#      target_group_arn = string
-#    }))
-#  }))
-#}
-variable "vpc_id" {
-  description = "VPC ID for ECS and security groups"
+variable "public_subnet_cidrs" {
+  description = "CIDR blocks for public subnets"
+  type        = list(string)
+}
+
+variable "private_subnet_cidrs" {
+  description = "CIDR blocks for private subnets"
+  type        = list(string)
+}
+
+variable "create_nat_gateway" {
+  description = "Whether to create a NAT Gateway"
+  type        = bool
+}
+variable "name" {
+  description = "VPC name"
+  type        = string
+}
+#############################
+variable "cluster_name" {
+  description = "The name of the EKS cluster"
   type        = string
 }
 
-#variable "lb_target_group_arn_1" {
-#  description = "Target group ARN for service1"
-#  type        = string
-#}
-
-#variable "lb_target_group_arn_2" {
-#  description = "Target group ARN for service1"
-#  type        = string
-#}
-
-variable "appointment_port" { 
-  type = number 
-}
-variable "appointment_path" { 
-  type = string 
-}
-variable "appointment_health_path" { 
-  type = string 
-}
-variable "appointment_desired_count" { 
-  type = number 
-}
-variable "appointment_image" { 
-  type = string 
+variable "cluster_version" {
+  description = "Kubernetes version for the EKS cluster"
+  type        = string
 }
 
-variable "patient_port" { 
-  type = number 
+variable "role_name" {
+  description = "Name of the IAM role for EKS"
+  type        = string
 }
-variable "patient_path" { 
-  type = string 
+
+variable "vpc_subnets" {
+  description = "List of VPC subnet IDs"
+  type        = list(string)
 }
-variable "patient_health_path" { 
-  type = string 
+
+variable "node_group_name" {
+  description = "The name of the node group"
+  type        = string
 }
-variable "patient_desired_count" { 
-  type = number 
+
+variable "node_instance_type" {
+  description = "EC2 instance type for the node group"
+  type        = list(string)
 }
-variable "patient_image" { 
-  type = string 
+
+variable "node_disk_size" {
+  description = "Disk size for the node group instances"
+  type        = number
+}
+
+variable "policy_arns" {
+  description = "List of IAM policy ARNs to attach to the roles"
+  type        = list(string)
+}
+
+variable "eks_addons" {
+  description = "Map of EKS addons and their versions"
+  type        = map(string)
+}
+
+variable "principal_arn" {
+  description = "The ARN of the principal for access entry"
+  type        = string
+}
+
+variable "kubernetes_groups" {
+  description = "Kubernetes groups for access entry"
+  type        = list(string)
+}
+
+variable "access_policy_arn" {
+  description = "The ARN of the access policy"
+  type        = string
 }
