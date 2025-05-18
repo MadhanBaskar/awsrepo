@@ -18,7 +18,7 @@ module "eks" {
   cluster_name     = var.cluster_name
   cluster_version  = var.cluster_version
   role_name        = var.role_name
-  vpc_subnets      = var.vpc_subnets
+  vpc_subnets      = module.vpc.public_subnet_ids
   node_group_name  = var.node_group_name
   node_instance_type = var.node_instance_type
   node_disk_size   = var.node_disk_size

@@ -1,6 +1,4 @@
 region            = "us-east-1"
-# vpc_id            = "vpc-0bd1562f11536b9dd"
-# subnet_ids        = ["subnet-0aade558b97319d86", "subnet-0211abeb4ee6ef699"]
 tags = {
   Name = "dev"
 }
@@ -13,14 +11,13 @@ create_nat_gateway   = false
 
 
 
-aws_region        = "us-west-2"
+aws_region        = "us-east-1"
 cluster_name      = "my-eks-cluster"
-cluster_version   = "1.28"
+cluster_version   = "1.32"
 role_name         = "eks-cluster-role"
-vpc_subnets       = ["subnet-12345678", "subnet-23456789", "subnet-34567890"]
 node_group_name   = "eks-node-group"
-node_instance_type = ["t3.medium"]
-node_disk_size    = 20
+node_instance_type = ["t2.medium"]
+node_disk_size    = 8
 
 policy_arns = [
   "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
@@ -31,12 +28,12 @@ policy_arns = [
 ]
 
 eks_addons = {
-  "coredns"               = "v1.10.1-eksbuild.2"
-  "vpc-cni"               = "v1.14.0-eksbuild.3"
-  "kube-proxy"            = "v1.28.1-eksbuild.1"
-  "eks-pod-identity-agent" = "v1.1.0-eksbuild.1"
+  "coredns"               = "v1.11.4-eksbuild.10"
+  "vpc-cni"               = "v1.19.5-eksbuild.1"
+  "kube-proxy"            = "v1.32.3-eksbuild.7"
+  "eks-pod-identity-agent" = "v1.3.7-eksbuild.2"
 }
 
-principal_arn     = "arn:aws:iam::123456789012:user/admin"
+principal_arn     = "arn:aws:iam::676206899900:user/devops"
 kubernetes_groups = ["system:masters"]
 access_policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"

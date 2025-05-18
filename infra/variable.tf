@@ -47,10 +47,10 @@ variable "role_name" {
   type        = string
 }
 
-variable "vpc_subnets" {
-  description = "List of VPC subnet IDs"
-  type        = list(string)
-}
+#variable "vpc_subnets" {
+#  description = "List of VPC subnet IDs"
+#  type        = list(string)
+#}
 
 variable "node_group_name" {
   description = "The name of the node group"
