@@ -1,43 +1,23 @@
-variable "name" {
-  description = "Name of the security group"
-  type        = string
-}
+# modules/security_groups/variables.tf
 
-variable "description" {
-  description = "Description of the security group"
+variable "cluster_name" {
+  description = "Name of the EKS cluster"
   type        = string
-  default     = ""
 }
 
 variable "vpc_id" {
-  description = "VPC ID"
+  description = "ID of the VPC where the cluster is deployed"
   type        = string
 }
 
-variable "ingress" {
-  description = "Ingress rules"
-  type = list(object({
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
-  }))
-  default = []
+variable "api_access_cidrs" {
+  description = "List of CIDR blocks that can access the EKS API server"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
 }
 
-variable "egress" {
-  description = "Egress rules"
-  type = list(object({
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
-  }))
-  default = []
-}
-
-variable "tags" {
-  description = "Tags for the security group"
-  type        = map(string)
-  default     = {}
+variable "lb_ingress_cidrs" {
+  description = "List of CIDR blocks that can access load balancers"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
 }
