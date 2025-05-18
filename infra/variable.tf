@@ -91,3 +91,20 @@ variable "access_policy_arn" {
   description = "The ARN of the access policy"
   type        = string
 }
+
+#variable "vpc_id" {
+#  description = "ID of the VPC where the EKS cluster will be deployed"
+#  type        = string
+#}
+
+variable "api_access_cidrs" {
+  description = "List of CIDR blocks that can access the EKS API server"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
+variable "lb_ingress_cidrs" {
+  description = "List of CIDR blocks that can access load balancers"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}

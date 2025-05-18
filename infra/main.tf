@@ -12,8 +12,21 @@ module "vpc" {
   }
 }
 
+module "security_groups" {
+  source = "../modules/security_groups"
+
+  cluster_name     = var.cluster_name
+  vpc_id           = module.vpc.vpc_id
+  api_access_cidrs = var.api_access_cidrs
+  lb_ingress_cidrs = var.lb_ingress_cidrs
+  depends_on = [
+    module.vpc
+  ]
+}
+
+
 module "eks" {
-  source = "../module/eks"
+  source = "../modules/eks"
 
   cluster_name     = var.cluster_name
   cluster_version  = var.cluster_version
@@ -27,4 +40,10 @@ module "eks" {
   principal_arn    = var.principal_arn
   kubernetes_groups = var.kubernetes_groups
   access_policy_arn = var.access_policy_arn
+  vpc_id           = module.vpc.vpc_id
+
+  depends_on = [
+    module.security_groups,
+    module.vpc
+  ]
 }

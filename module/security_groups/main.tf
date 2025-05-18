@@ -91,7 +91,6 @@ resource "aws_security_group" "load_balancers_sg" {
   }
 }
 
-# Allow HTTP traffic from specified CIDR blocks
 resource "aws_security_group_rule" "lb_ingress_http" {
   security_group_id = aws_security_group.load_balancers_sg.id
   type              = "ingress"
@@ -102,7 +101,6 @@ resource "aws_security_group_rule" "lb_ingress_http" {
   description       = "Allow HTTP traffic"
 }
 
-# Allow HTTPS traffic from specified CIDR blocks
 resource "aws_security_group_rule" "lb_ingress_https" {
   security_group_id = aws_security_group.load_balancers_sg.id
   type              = "ingress"

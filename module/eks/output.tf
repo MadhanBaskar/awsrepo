@@ -77,3 +77,13 @@ output "access_policy_arn" {
   description = "The ARN of the access policy associated with the EKS cluster"
   value       = aws_eks_access_policy_association.access_association.policy_arn
 }
+
+output "aws_lb_controller_role_arn" {
+  description = "ARN of the IAM role for the AWS Load Balancer Controller"
+  value       = aws_iam_role.aws_load_balancer_controller.arn
+}
+
+output "aws_lb_controller_policy_arn" {
+  description = "ARN of the IAM policy for the AWS Load Balancer Controller"
+  value       = aws_iam_policy.aws_load_balancer_controller.arn
+}

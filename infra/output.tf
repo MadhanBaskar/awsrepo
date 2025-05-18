@@ -68,3 +68,22 @@ output "access_policy_arn" {
   description = "The ARN of the access policy associated with the EKS cluster"
   value       = module.eks.access_policy_arn
 }
+
+output "security_groups" {
+  description = "Security group IDs for the EKS cluster"
+  value = {
+    cluster_sg       = module.security_groups.cluster_security_group_id
+    nodes_sg         = module.security_groups.nodes_security_group_id
+    load_balancers_sg = module.security_groups.load_balancers_security_group_id
+  }
+}
+
+output "aws_lb_controller_role_arn" {
+  description = "ARN of the IAM role for the AWS Load Balancer Controller"
+  value       = module.eks.aws_lb_controller_role_arn
+}
+
+output "aws_lb_controller_policy_arn" {
+  description = "ARN of the IAM policy for the AWS Load Balancer Controller"
+  value       = module.eks.aws_lb_controller_policy_arn
+}

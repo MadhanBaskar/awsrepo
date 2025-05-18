@@ -1,7 +1,9 @@
 region            = "us-east-1"
-#tags = {
-#  Name = "dev"
-#}
+#vpc_id           = "vpc-12345678" # Replace with your actual VPC ID
+api_access_cidrs = ["10.0.6.0/24", "10.0.7.0/24"]
+#lb_ingress_cidrs = ["0.0.0.0/0"]
+
+
 name = "demo"
 vpc_cidr             = "10.0.0.0/16"
 availability_zones   = ["us-east-1a", "us-east-1b"]
@@ -9,9 +11,6 @@ public_subnet_cidrs  = ["10.0.6.0/24", "10.0.7.0/24"]
 private_subnet_cidrs = ["10.0.4.0/24", "10.0.5.0/24"]
 create_nat_gateway   = false
 
-
-
-#aws_region        = "us-east-1"
 cluster_name      = "my-eks-cluster"
 cluster_version   = "1.32"
 role_name         = "eks-cluster-role"
