@@ -1,7 +1,7 @@
 region            = "us-east-1"
-tags = {
-  Name = "dev"
-}
+#tags = {
+#  Name = "dev"
+#}
 name = "demo"
 vpc_cidr             = "10.0.0.0/16"
 availability_zones   = ["us-east-1a", "us-east-1b"]
@@ -11,7 +11,7 @@ create_nat_gateway   = false
 
 
 
-aws_region        = "us-east-1"
+#aws_region        = "us-east-1"
 cluster_name      = "my-eks-cluster"
 cluster_version   = "1.32"
 role_name         = "eks-cluster-role"
