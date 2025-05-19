@@ -27,9 +27,9 @@ policy_arns = [
 
 eks_addons = {
 #  "coredns"               = "v1.11.4-eksbuild.10"
-  "vpc-cni"               = "v1.19.5-eksbuild.1"
-  "kube-proxy"            = "v1.32.3-eksbuild.7"
-  "eks-pod-identity-agent" = "v1.3.7-eksbuild.2"
+#  "vpc-cni"               = "v1.19.5-eksbuild.1"
+#  "kube-proxy"            = "v1.32.3-eksbuild.7"
+#  "eks-pod-identity-agent" = "v1.3.7-eksbuild.2"
 }
 
 principal_arn     = "arn:aws:iam::676206899900:user/devops"

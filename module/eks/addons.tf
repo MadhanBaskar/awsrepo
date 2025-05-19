@@ -2,7 +2,7 @@ resource "aws_eks_addon" "coredns" {
   cluster_name                = aws_eks_cluster.eks_cluster.name
   addon_name                  = "coredns"
 #  addon_version               = var.eks_addons["coredns"]
-  resolve_conflicts_on_update = "PRESERVE"
+  resolve_conflicts_on_update = "OVERWRITE"
 }
 
 resource "aws_iam_role" "vpc_cni_role" {
@@ -18,23 +18,23 @@ resource "aws_iam_role_policy_attachment" "vpc_cni_policy" {
 resource "aws_eks_addon" "vpc-cni" {
   cluster_name                = aws_eks_cluster.eks_cluster.name
   addon_name                  = "vpc-cni"
-  addon_version               = var.eks_addons["vpc-cni"]
-  resolve_conflicts_on_update = "PRESERVE"
+#  addon_version               = var.eks_addons["vpc-cni"]
+  resolve_conflicts_on_update = "OVERWRITE"
   service_account_role_arn    = aws_iam_role.vpc_cni_role.arn
 }
 
 resource "aws_eks_addon" "kube-proxy" {
   cluster_name                = aws_eks_cluster.eks_cluster.name
   addon_name                  = "kube-proxy"
-  addon_version               = var.eks_addons["kube-proxy"]
-  resolve_conflicts_on_update = "PRESERVE"
+#  addon_version               = var.eks_addons["kube-proxy"]
+  resolve_conflicts_on_update = "OVERWRITE"
 }
 
 resource "aws_eks_addon" "eks-pod-identity-agent" {
   cluster_name                = aws_eks_cluster.eks_cluster.name
   addon_name                  = "eks-pod-identity-agent"
-  addon_version               = var.eks_addons["eks-pod-identity-agent"]
-  resolve_conflicts_on_update = "PRESERVE"
+#  addon_version               = var.eks_addons["eks-pod-identity-agent"]
+  resolve_conflicts_on_update = "OVERWRITE"
 }
 
 resource "aws_eks_node_group" "node_group" {
