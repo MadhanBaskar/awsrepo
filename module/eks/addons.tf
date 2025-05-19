@@ -1,9 +1,9 @@
-resource "aws_eks_addon" "coredns" {
-  cluster_name                = aws_eks_cluster.eks_cluster.name
-  addon_name                  = "coredns"
-  addon_version               = var.eks_addons["coredns"]
-  resolve_conflicts_on_update = "PRESERVE"
-}
+#resource "aws_eks_addon" "coredns" {
+#  cluster_name                = aws_eks_cluster.eks_cluster.name
+#  addon_name                  = "coredns"
+#  addon_version               = var.eks_addons["coredns"]
+#  resolve_conflicts_on_update = "PRESERVE"
+#}
 
 resource "aws_iam_role" "vpc_cni_role" {
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
